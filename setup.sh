@@ -2,21 +2,21 @@
 
 set -e
 
-echo "./setup.sh - This script is idempotent and will leave you in your desired
-state if run multiple times. Some API calls to Vault will produce errors if
-you run multiple times. Those errors can be safely ignored."
+echo "./setup.sh - This script is idempotent and will leave you in the desired
+state if run multiple times. Some API calls to Vault will produce errors
+when run multiple times. Those errors can be safely ignored."
 
 echo # newline
 
-echo "Get Vault root token from vault-recovery-keys secret..."
+echo "Getting Vault root token from vault-recovery-keys secret..."
 ROOT_TOKEN="$(oc get secret vault-recovery-keys -o jsonpath='{.data.recovery-keys\.json}' | base64 -d | jq -r '.["root_token"]')"
 
-echo "Log into Vault with the root token..."
+echo "Logging into Vault with the root token..."
 # Output to /dev/null so it doesn't print the root token.
 # If you hit issues, try removing "> /dev/null"
 oc exec -i -n vault-server vault-server-0 -- vault login - <<< "$ROOT_TOKEN" > /dev/null
 
-echo "Executing setup.sh in vault-server-0 pod..."
+# Execute inline script against Vault pod
 oc exec -i -n vault-server vault-server-0 -- /bin/bash -s << "EOF"
 CLUSTER_NAME="kubernetes"
 

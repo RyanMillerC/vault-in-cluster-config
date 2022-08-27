@@ -17,15 +17,11 @@ The script at the moment does not:
 
 ## Running
 
-**NOTE:** These commands assumes Vault was initialized with
+**NOTE:** The setup script assumes Vault was initialized with
 [vault-init](https://github.com/RyanMillerC/vault-init) using the default set
-up. If you customized or deployed Vault through other means, you may need to
-make slight modifications to the commands below.
+up. If you customized or deployed Vault through other means, you will need to
+make modifications to the script.
 
 ```bash
-# Copy setup.sh into the Vault server container
-oc rsync -n vault-server setup.sh vault-server-0:/tmp/setup.sh
-
-# Execute setup.sh in the Vault server container
-oc exec -it -n vault-server vault-server-0 -- /tmp/setup.sh
+./setup.sh
 ```

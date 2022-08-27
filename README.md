@@ -4,6 +4,10 @@ Configure Vault for in-cluster Kubernetes authentication. This configuration is
 only valid when the Vault server is running on the same cluster that needs to
 authenticate to Vault.
 
+**NOTE:** This configuration assumes Vault was initialized with
+[vault-init](https://github.com/RyanMillerC/vault-init). If you deployed Vault
+through other means, you may need to make slight modifications to the script.
+
 The script *setup.sh* will set up:
 
 * Enable a k8s auth engine for the cluster
